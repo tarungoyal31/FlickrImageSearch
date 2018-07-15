@@ -25,6 +25,7 @@ Future Work and Enhancements
 ----------------------------
 Future work includes the following tasks:
 * Image detail view can be added on clicking images.
+* No internet connection Snackbar or empty view.
 * Placeholder image functionality in ImageLoader.
 * Caching of images in disk for better persistent.
 * Search suggestions based on recent searches.
