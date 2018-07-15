@@ -24,9 +24,9 @@ public class ImageLoader {
     private static final String TAG = "ImageLoader";
 
     /**
-     * Cache size in MB.
+     * Cache size in bytes.
      */
-    private static final int CACHE_SIZE = 1000*1024*1024;
+    private static final int CACHE_SIZE = (int) (Runtime.getRuntime().maxMemory() / 8);
 
     private static ImageLoader sInstance = null;
 
