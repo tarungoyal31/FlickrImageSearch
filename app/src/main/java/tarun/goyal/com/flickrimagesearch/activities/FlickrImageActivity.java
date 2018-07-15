@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -108,6 +109,12 @@ public class FlickrImageActivity extends AppCompatActivity implements FlickrImag
     @Override
     public void showLoading(boolean isLoading) {
         mSwipeRefreshLayout.setRefreshing(isLoading);
+    }
+
+    @Override
+    public void showFailure() {
+        Toast.makeText(this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override

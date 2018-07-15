@@ -35,7 +35,7 @@ public class FlickrImagePresenter {
     @NonNull
     private ArrayList<Call<FlickrImageResponseDto>> calls;
 
-    FlickrImagePresenter(@NonNull ApiService apiService, @NonNull FlickrImageView view) {
+    public FlickrImagePresenter(@NonNull ApiService apiService, @NonNull FlickrImageView view) {
         this.mApiService = apiService;
         this.mView = view;
         mSearchText = "";
@@ -109,6 +109,7 @@ public class FlickrImagePresenter {
                 Log.e(TAG, "Failed to load images", t);
                 isLoading = false;
                 mView.showLoading(false);
+                mView.showFailure();
             }
         });
 
@@ -142,5 +143,7 @@ public class FlickrImagePresenter {
          * show the loading indicators in the view.
          */
         void showLoading(boolean isLoading);
+
+        void showFailure();
     }
 }
