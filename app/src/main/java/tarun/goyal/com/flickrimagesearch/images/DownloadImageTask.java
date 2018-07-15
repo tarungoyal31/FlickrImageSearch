@@ -58,16 +58,19 @@ public class DownloadImageTask extends AsyncTask<Object, Void, Bitmap> {
                             false
                             );
                 }
+
+                if (bitmap != null) {
+                    mCache.put(url, width, height, bitmap);
+                }
+
+                return bitmap;
+
             } catch (Exception e) {
                 Log.e(TAG, "Exception while fetching image from the server.", e);
             }
         }
 
-        if (bitmap != null) {
-            mCache.put(url, width, height, bitmap);
-        }
-
-        return bitmap;
+        return null;
     }
 
     @Override
