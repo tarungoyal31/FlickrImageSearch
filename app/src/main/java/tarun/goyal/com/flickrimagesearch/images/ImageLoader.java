@@ -64,7 +64,7 @@ public class ImageLoader {
                 try {
                     imageView.setImageBitmap(bitmap);
                 } catch (OutOfMemoryError e) {
-                    Log.e(TAG, "", e);
+                    Log.e(TAG, "Out of memory error while setting image in ImageView", e);
                 }
             }
         };
@@ -85,7 +85,7 @@ public class ImageLoader {
             downloadImageTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             return downloadImageTask;
         } catch (Exception e) {
-            Log.e(TAG, "", e);
+            Log.e(TAG, "Exception while starting DownloadImageTask", e);
             return null;
         }
     }
