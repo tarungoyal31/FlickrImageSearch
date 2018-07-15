@@ -1,4 +1,4 @@
-package tarun.goyal.com.flickrimagesearch.activities;
+package tarun.goyal.com.flickrimagesearch.activities.imagelistactivity;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -25,11 +25,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @NonNull
     private List<FlickrImageMetadata> mImages;
-    private ImageLoader mImageLoader;
+    private final ImageLoader mImageLoader;
+    private final ImageClickedCallback mImageClickedCallback;
 
-    ImageAdapter() {
+    ImageAdapter(ImageClickedCallback imageClickedCallback) {
         mImages = new ArrayList<>();
         mImageLoader = ImageLoader.getInstance();
+        mImageClickedCallback = imageClickedCallback;
     }
 
     public void setImages(List<FlickrImageMetadata> images) {
@@ -74,6 +76,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             super(itemView);
             mImageLoader = imageLoader;
             mImageView = itemView.findViewById(R.id.image_view);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mImageClickedCallback.imageClicked(mFlickrImageMetadata, mImageView);
+                }
+            });
         }
 
         void bindView(@Nullable FlickrImageMetadata flickrImageMetadata) {
@@ -83,7 +92,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             if (mDownloadImageTask != null) {
                 mDownloadImageTask.cancel(true);
             }
-
             loadImage();
         }
 
@@ -106,5 +114,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                 }
             }
         }
+    }
+
+    public interface ImageClickedCallback {
+        void imageClicked(FlickrImageMetadata image, View imageView);
     }
 }

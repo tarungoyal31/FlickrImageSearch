@@ -15,7 +15,11 @@
         android:allowBackup="false"
         >
 
-        <activity android:name=".activities.FlickrImageActivity"
+        <activity android:name=".activities.imagedetailactivity.ImageDetailActivity"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".activities.imagelistactivity.FlickrImageActivity"/>
+
+        <activity android:name=".activities.imagelistactivity.FlickrImageActivity"
                   android:label="@string/image_search"
                   android:screenOrientation="portrait">
             <intent-filter>

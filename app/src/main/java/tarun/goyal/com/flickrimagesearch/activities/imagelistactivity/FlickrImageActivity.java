@@ -1,21 +1,26 @@
-package tarun.goyal.com.flickrimagesearch.activities;
+package tarun.goyal.com.flickrimagesearch.activities.imagelistactivity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
 
 import tarun.goyal.com.flickrimagesearch.App;
 import tarun.goyal.com.flickrimagesearch.R;
+import tarun.goyal.com.flickrimagesearch.activities.imagedetailactivity.ImageDetailActivity;
 import tarun.goyal.com.flickrimagesearch.data.FlickrImageMetadata;
 
-public class FlickrImageActivity extends AppCompatActivity implements FlickrImagePresenter.FlickrImageView {
+public class FlickrImageActivity extends AppCompatActivity implements FlickrImagePresenter.FlickrImageView, ImageAdapter.ImageClickedCallback {
 
     public static final int COLUMN_COUNT = 3;
 
@@ -60,7 +65,7 @@ public class FlickrImageActivity extends AppCompatActivity implements FlickrImag
         final GridLayoutManager layoutManager =
                 new GridLayoutManager(this, COLUMN_COUNT, LinearLayoutManager.VERTICAL, false);
 
-        mImageAdapter = new ImageAdapter();
+        mImageAdapter = new ImageAdapter(this);
         mImageRecyclerView.setLayoutManager(layoutManager);
         mImageRecyclerView.setAdapter(mImageAdapter);
 
@@ -121,5 +126,19 @@ public class FlickrImageActivity extends AppCompatActivity implements FlickrImag
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.finish();
+    }
+
+    @Override
+    public void imageClicked(FlickrImageMetadata image, View imageView) {
+        Intent intent = new Intent(this, ImageDetailActivity.class);
+        intent.putExtra(ImageDetailActivity.IMAGE_TITLE, image.getTitle());
+        intent.putExtra(ImageDetailActivity.IMAGE_URL, image.getImageUrl());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(this, imageView, "sharedImage");
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 }

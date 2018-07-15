@@ -1,4 +1,4 @@
-package tarun.goyal.com.flickrimagesearch.activities;
+package tarun.goyal.com.flickrimagesearch.activities.imagelistactivity;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

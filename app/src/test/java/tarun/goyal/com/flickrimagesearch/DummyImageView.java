@@ -3,7 +3,7 @@ package tarun.goyal.com.flickrimagesearch;
 import java.util.ArrayList;
 import java.util.List;
 
-import tarun.goyal.com.flickrimagesearch.activities.FlickrImagePresenter;
+import tarun.goyal.com.flickrimagesearch.activities.imagelistactivity.FlickrImagePresenter;
 import tarun.goyal.com.flickrimagesearch.data.FlickrImageMetadata;
 
 /**
