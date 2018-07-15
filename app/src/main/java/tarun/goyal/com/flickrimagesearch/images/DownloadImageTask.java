@@ -48,14 +48,16 @@ public class DownloadImageTask extends AsyncTask<Object, Void, Bitmap> {
         if (bitmap == null) {
             try {
                 //Set sample size for downsampling the image.
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inJustDecodeBounds = true;
+                bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
 
-                opts.inSampleSize = BitmapUtils.calculateInSampleSize(opts, width, height);
-                opts.inJustDecodeBounds = false;
-
-                bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent(), null, opts);
-
+                int scaleRatio = BitmapUtils.calculateScaleRatio(bitmap, width, height);
+                if (scaleRatio > 1) {
+                    bitmap = Bitmap.createScaledBitmap(bitmap,
+                            bitmap.getWidth() / scaleRatio,
+                            bitmap.getHeight() / scaleRatio,
+                            false
+                            );
+                }
             } catch (Exception e) {
                 Log.e(TAG, "Exception while fetching image from the server.", e);
             }

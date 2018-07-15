@@ -1,30 +1,19 @@
 package tarun.goyal.com.flickrimagesearch.images;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 /**
  * Utility class for all the {@link Bitmap} related utilities.
  */
 public class BitmapUtils {
 
-    /**
-     * Calculates the sample size of bitmaps.
-     */
-    public static int calculateInSampleSize(BitmapFactory.Options options, int requiredWidth, int requiredHeight) {
+    public static int calculateScaleRatio(Bitmap bitmap, int desiredWidth, int desiredHeight) {
+        int originalWidth = bitmap.getWidth();
+        int originalHeight = bitmap.getHeight();
 
-        int inSampleSize = 1;
-        int ratioH = options.outHeight / requiredHeight;
-        int ratioW = options.outWidth / requiredWidth;
-
-        if (ratioW > inSampleSize) {
-            inSampleSize = ratioW;
+        if (desiredHeight >= originalHeight || desiredWidth >= originalWidth) {
+            return 1;
         }
-
-        if (ratioH > inSampleSize) {
-            inSampleSize = ratioH;
-        }
-
-        return inSampleSize;
+        return Math.min(originalHeight/desiredHeight, originalWidth/desiredWidth);
     }
 }
