@@ -8,6 +8,8 @@ Images are shown in a 3-column endless scrollview.
 
 Basic MVP architecture is being used here for better code readability and testability.
 
+App is named as "Image Search" and it is using android's default icon.
+
 Features
 --------
 This app presents user with following features.
